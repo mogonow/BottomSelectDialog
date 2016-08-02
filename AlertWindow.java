@@ -1,3 +1,6 @@
+package com.ku6.modelspeak.views;
+
+
 
 
 import android.app.Dialog;
@@ -11,16 +14,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.ku6.modelspeak.ui.R;
+
 /**
  * 底部弹出菜单栏
- * @version 1.0
+ * @version 2.0
  */
 public class AlertWindow{
 	private Dialog          mDialog;
 	private Context         mContext;
 	private OnClickListener mOneClickListenr    = null;
+	private OnClickListener mTwoClickListenr    = null;
+	
 	private OnClickListener mMidClickListenr    = null;
 	private OnClickListener mCloseClickListener = null;
+	private Button btn_window_title, btnOne,btnMid,btnClose,btn_three;
 	
 	public AlertWindow(){}
 	
@@ -36,11 +44,14 @@ public class AlertWindow{
 		LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.alert_dialog_menu_layout, null);
 		final int cFullFillWidth = 10000;
 		layout.setMinimumWidth(cFullFillWidth);
+		btn_window_title = (Button) layout.findViewById(R.id.btn_window_title);
+		btnOne = (Button) layout.findViewById(R.id.btnOne);
+		btnMid = (Button) layout.findViewById(R.id.btnMid);	
+		btn_three = (Button) layout.findViewById(R.id.btn_three);
+		btnClose = (Button) layout.findViewById(R.id.btnClose);
 		
-		Button btnOne = (Button) layout.findViewById(R.id.btnOne);
-		Button btnMid = (Button) layout.findViewById(R.id.btnMid);
-		Button btnClose = (Button) layout.findViewById(R.id.btnClose);
 		btnOne.setOnClickListener(oneClickListenr);
+		btn_three.setOnClickListener(twoClickListenr);
 		btnMid.setOnClickListener(midClickListenr);
 		btnClose.setOnClickListener(closeClickListener);
 		
@@ -91,7 +102,15 @@ public class AlertWindow{
 	}
 	
 	/**
-	 * 设置第二按钮的监听事件
+	 * 设置第2个按钮的监听事件
+	 * @param l
+	 */
+	public void setOnTwoListener(OnClickListener l) {
+		mTwoClickListenr = l;
+	}
+	
+	/**
+	 * 设置第3按钮的监听事件
 	 * @param l
 	 */
 	public void setOnMidListener(OnClickListener l) {
@@ -119,7 +138,18 @@ public class AlertWindow{
 	};
 	
 	/**
-	 * 第一个按钮的点击监听
+	 * 第2个按钮的点击监听
+	 */
+	private  OnClickListener twoClickListenr = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			if (mTwoClickListenr != null){
+				mTwoClickListenr.onClick(v);
+			}
+		}
+	};
+	/**
+	 * 第3个按钮的点击监听
 	 */
 	private  OnClickListener midClickListenr = new OnClickListener() {
 		@Override
@@ -141,4 +171,34 @@ public class AlertWindow{
 			}
 		}
 	};
+	public void  setButtonContent (String title,String one,String two,String three,String end){
+		
+		
+		setButtonStatic(btn_window_title,title);
+		setButtonStatic(btnOne,one);
+		setButtonStatic(btnMid,two);
+		setButtonStatic(btn_three,three);
+		setButtonStatic(btnClose,end);
+		this.btn_window_title.setText(title);
+		this.btnOne.setText(one);
+		this.btnMid.setText(two);
+		this.btn_three.setText(three);
+		this.btnClose .setText(end);
+		
+	}
+	private void setButtonStatic(Button button,String btnContent) {
+		// TODO Auto-generated method stub
+		
+		
+if (!btnContent.equals("")){
+	
+	button.setText(btnContent);
+		}else {
+			button.setVisibility(View.GONE);
+		}
+	}
+
+	public void setVisiable(){
+		
+	}
 }
