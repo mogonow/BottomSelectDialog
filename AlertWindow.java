@@ -1,4 +1,4 @@
-package com.ku6.modelspeak.views;
+
 
 
 
@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.ku6.modelspeak.ui.R;
 
 /**
  * 底部弹出菜单栏
